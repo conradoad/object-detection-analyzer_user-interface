@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        //"baseUrl": ".",
+        "outDir": "./app/js",
+        "allowJs": false,
+        "target": "es6",
+        "noImplicitAny": false,
+        "moduleResolution": "node",
+        "module": "ES6"
+    },
+    "include": [
+        "./app/ts/**/*"
+    ]
+}

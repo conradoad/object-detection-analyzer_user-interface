@@ -1,0 +1,104 @@
+#matrixResultContainer {
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+}
+
+#matrix-result__grid {
+    display: grid;
+    width: fit-content;
+    margin: 20px auto;
+}
+
+
+.cell-result, .x-axis, .y-axis, .cell-options {
+    margin: 2px;
+    border: 1px solid lightgray;
+}
+
+.cell-selected {
+    border: 3px solid black;
+}
+
+.y-axis {
+    grid-template-columns: auto min-content;
+}
+
+.x-axis p{
+    border-bottom: 1px solid lightgray;
+    margin: 0;
+}
+
+.y-axis p {
+    border-left: 1px solid lightgray;
+    margin: 0;
+    width: fit-content;
+}
+
+.cell-option:not(:last-child){
+    border-bottom: 1px solid lightgray;
+}
+
+.cell-x-axis:not(:last-child){
+    border-right: 1px dotted lightgray;
+}
+
+.cell-y-axis:not(:last-child){
+    border-top: 1px dotted lightgray;
+}
+
+.cell-y-axis{
+    width: fit-content;
+}
+
+.y-axis p, .cell-y-axis{
+    writing-mode: tb;
+    transform: rotate(180deg);
+    
+}
+
+.cell.visual-metric-control {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+}
+
+
+.cell-result, .cell-options {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* grid-template-columns: 50% 50%; */
+}
+
+.cell-result-child, .cell-option {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell-result-child  > div {
+    width: 100%;
+
+}
+
+.metricsTable, th, td  {
+    
+    border: 1px solid black;
+}
+
+.metricsTable {
+    margin: auto;
+    max-width: 95%;
+}
+
+.metricsTable tr td:nth-child(1) {
+    width: 40%;
+    text-align: left;
+    vertical-align: top;
+}
+
+.metricsTable tr td:nth-child(2) {
+    
+}

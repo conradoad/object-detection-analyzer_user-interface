@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisador de performance de algoritmos de detecção de objetos</title>
+
+    <link rel="stylesheet" href="bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/css/style.css">
+    <link rel="stylesheet" href="app/css/image-viewer.css">
+    <link rel="stylesheet" href="app/css/analysis-result.css">
+
+</head>
+
+<body class="border text-center p-3 d-flex flex-column">
+
+    <header class="m-3">
+        <h1 class="">Analisador de Performance de Detecção de Objetos</h1>
+    </header>
+
+    <main class="d-flex flex-row">
+        <section class="leftColumn border w-50 d-flex flex-column pl-3 pr-3">
+            <h2 class="mt-1">Imagem</h2>
+
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image-input-button">
+                <label class="custom-file-label" for="customFile">Escolha o arquivo da imagem</label>
+            </div>
+
+            <div id="imageViewer" class="mt-3"></div>
+
+
+            <div>
+                <button id="getMetricsButton" type="button" class="btn btn-primary mb-3 mt-3">
+                    Get Metrics
+                </button>
+
+                <table class="metricsTable">
+                    
+                </table>
+            </div>
+
+        </section>
+
+        <section class="rightColumn border w-50 d-flex flex-column">
+
+            <div class="control border-bottom">
+                <h2 class="mt-1">Parâmetros</h2>
+
+                <form class="text-left">
+                    <div class="form-row pl-3 pr-3">
+                        <div class="form-group col-9">
+                            <label for="hostInput">Host</label>
+                            <input id="hostInput" type="text" class="form-control" placeholder="127.0.0.1">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="portInput">Port</label>
+                            <input id="portInput" type="text" class="form-control" placeholder="5252">
+                        </div>
+                    </div>
+                </form>
+
+                <div class="input-group pl-3 pr-3 mb-4">
+                    <select class="custom-select" id="modelSelector">
+                        <option selected>Escolha o modelo pré treinado</option>
+                        <option value="1">Face</option>
+                        <option value="2">Profile</option>
+                        <option value="3">Body</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button">Carregar</button>
+                    </div>
+                </div>
+
+                <form class="text-center">
+                    <div class="form-row pl-3 pr-3">
+
+                        <div class="form-group col-6 ml-6 mr-6">
+                            <label for="minNeighborsInput">Min. Neighbors: <span id="minNeighborsLabel"></span></label>
+                            <input type="range" class="custom-range" id="minNeighborsInput">
+                        </div>
+
+                        <div class="form-group col-6 ml-6 mr-6">
+                            <label for="numberOfSamplesInput">Number of Samples: <span id="numberOfSamplesLabel"></span>
+                            </label>
+                            <input type="range" class="custom-range" id="numberOfSamplesInput">
+                        </div>
+                    </div>
+
+                </form>
+
+                <form id="matrixParamsGroup" class="w-100">
+                    <div class="form-row pl-3 pr-3">
+
+                        <div id="scaleFactorParams" class="form-group mb-0 col-6 pr-4 pl-4 mt-2">
+                            <label>Scale Factor* (x-axis)</label>
+
+                            <div class="form-row text-left">
+
+                                <div class="form-group col-4">
+                                    <label for="scaleFactorInitInput"> From </label>
+                                    <input type="text" class="form-control" id="scaleFactorInitInput" placeholder="1.1">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="scaleFactorEndInput"> To </label>
+                                    <input type="text" class="form-control" id="scaleFactorEndInput" placeholder="1.01">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="scaleFactorStepsInput"> Steps </label>
+                                    <input type="text" class="form-control" id="scaleFactorStepsInput" placeholder="10">
+                                </div>
+                            </div>
+
+                            <label> * Parâmetro que especifica o quanto a imagem é reduzida a cada escala. </label>
+
+                        </div>
+
+                        <div id="minSizeParams" class="form-group mb-0 col-6 pr-4 pl-4 mt-2">
+                            <label>Min. Size in % from image width** (y-axis)</label>
+
+                            <div class="form-row text-left">
+
+                                <div class="form-group col-4">
+                                    <label for="minSizeInitInput"> From </label>
+                                    <input type="text" class="form-control" id="minSizeInitInput" placeholder="5">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="minSizeEndInput"> To </label>
+                                    <input type="text" class="form-control" id="minSizeEndInput" placeholder="50">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="minSizeStepsInput"> Steps </label>
+                                    <input type="text" class="form-control" id="minSizeStepsInput" placeholder="10">
+                                </div>
+                            </div>
+
+                            <label> ** Tamanho mínimo da face a ser detectada, em razão da largura da imagem. </label>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+                <button id="sendButton" type="button" class="btn btn-primary mb-3">
+                    Send
+                </button>
+
+            </div>
+
+            <div class="result h-100">
+                <h2 class="mt-1">Resultado</h2>
+                <div id="matrixResultContainer">
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <script type="module" src="app/js/app.js"></script>
+</body>
+
+</html>

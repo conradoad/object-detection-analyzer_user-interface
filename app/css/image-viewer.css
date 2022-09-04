@@ -1,0 +1,11 @@
+
+#imageViewer {
+    position: relative;
+    text-align: left;
+}
+
+#imageViewer img{
+    /* max-height: 700px; */
+    /* position: absolute; */
+    left: 0;
+}
